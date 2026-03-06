@@ -20,6 +20,14 @@
   justify-content: space-between;
 }
 
+.snapshot-copy-main {
+  display: grid;
+  gap: 0.45rem;
+  justify-items: end;
+  order: 2;
+  text-align: right;
+}
+
 .snapshot-kicker,
 .overlay-kicker,
 .panel-title,
@@ -50,6 +58,40 @@
   font-size: 1rem;
   margin: 0;
   max-width: 46rem;
+  order: 1;
+}
+
+.author-button {
+  align-items: center;
+  background: rgba(6, 24, 37, 0.52);
+  border: 1px solid rgba(96, 232, 255, 0.18);
+  border-radius: 999px;
+  box-shadow: none;
+  color: #dbf7ff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  justify-content: center;
+  justify-self: end;
+  letter-spacing: 0.08em;
+  min-height: 2rem;
+  padding: 0.42rem 0.8rem;
+  text-transform: uppercase;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.author-button:hover {
+  background: rgba(9, 31, 47, 0.72);
+  border-color: rgba(124, 239, 255, 0.3);
+}
+
+.author-button:focus-visible {
+  outline: 2px solid #7af0ff;
+  outline-offset: 3px;
 }
 
 .snapshot-stage-wrap {
@@ -255,12 +297,16 @@
   border-radius: 999px;
   box-shadow: 0 10px 30px rgba(71, 233, 255, 0.25);
   color: #032237;
+  cursor: pointer;
+  display: inline-flex;
   font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
   font-size: 0.95rem;
   font-weight: 800;
+  justify-content: center;
   letter-spacing: 0.08em;
   min-width: 12rem;
   padding: 0.95rem 1.4rem;
+  text-decoration: none;
   text-transform: uppercase;
 }
 
@@ -345,6 +391,79 @@
   gap: 0.35rem;
 }
 
+.author-modal-backdrop {
+  align-items: center;
+  backdrop-filter: blur(10px);
+  background: rgba(1, 7, 13, 0.68);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 1.5rem;
+  position: fixed;
+  z-index: 40;
+}
+
+.author-modal {
+  background:
+    radial-gradient(circle at top, rgba(54, 231, 255, 0.18), transparent 46%),
+    linear-gradient(180deg, rgba(6, 19, 29, 0.98), rgba(4, 10, 18, 0.98));
+  border: 1px solid rgba(95, 231, 255, 0.22);
+  border-radius: 28px;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.45);
+  max-width: 32rem;
+  padding: 2rem;
+  position: relative;
+  width: min(100%, 32rem);
+}
+
+.author-modal h2 {
+  color: #f7fbff;
+  font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.author-modal p {
+  color: #aac4d4;
+  margin: 1rem 0 0;
+}
+
+.author-version {
+  color: #72ecff;
+  font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.author-modal strong {
+  color: #f7fbff;
+}
+
+.author-modal-close {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #d9f7ff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 2rem;
+  height: 2.5rem;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 2.5rem;
+}
+
+.author-modal-close:focus-visible {
+  outline: 2px solid #7af0ff;
+  outline-offset: 3px;
+}
+
 @keyframes float-up {
   0% {
     opacity: 0;
@@ -377,11 +496,23 @@
   }
 
   .snapshot-copy {
+    align-items: flex-start;
     gap: 0.8rem;
+  }
+
+  .snapshot-copy-main {
+    justify-items: start;
+    order: 1;
+    text-align: left;
+    width: 100%;
   }
 
   .snapshot-stage {
     min-height: 70vh;
+  }
+
+  .snapshot-summary {
+    order: 2;
   }
 
   .snapshot-hud {
@@ -395,6 +526,14 @@
   .overlay-card {
     margin: 0 1rem;
     padding: 1.5rem;
+  }
+
+  .author-modal {
+    padding: 1.5rem;
+  }
+
+  .author-button {
+    justify-self: start;
   }
 
   .stage-overlay.top {

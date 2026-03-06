@@ -88,6 +88,8 @@ const MAX_TARGETS = 5
 const SHOT_COOLDOWN = 0.12
 const BULLET_SPEED = 960
 const BEST_SCORE_KEY = 'snap-shot-best-score'
+const AUTHOR_GITHUB_URL = 'https://github.com/soBigRice'
+const APP_VERSION = __APP_VERSION__
 
 const TARGET_SPECS: Record<TargetKind, TargetSpec> = {
   normal: {
@@ -422,7 +424,26 @@ export function SnapshotGame() {
   const popupTimeoutsRef = useRef<number[]>([])
 
   const [hud, setHud] = useState(initialHudState)
+  const [isAuthorModalOpen, setIsAuthorModalOpen] = useState(false)
   const [popups, setPopups] = useState<PopupState[]>([])
+
+  useEffect(() => {
+    if (!isAuthorModalOpen) {
+      return undefined
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setIsAuthorModalOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isAuthorModalOpen])
 
   useEffect(() => {
     const container = mountRef.current
@@ -1142,8 +1163,17 @@ export function SnapshotGame() {
   return (
     <section className="snapshot-shell">
       <div className="snapshot-copy">
-        <p className="snapshot-kicker">THREE.JS / TIMED RANGE</p>
-        <h1>Snap Shot</h1>
+        <div className="snapshot-copy-main">
+          <p className="snapshot-kicker">THREE.JS / TIMED RANGE</p>
+          <h1>Snap Shot</h1>
+          <button
+            className="author-button"
+            onClick={() => setIsAuthorModalOpen(true)}
+            type="button"
+          >
+            关于作者
+          </button>
+        </div>
         <p className="snapshot-summary">
           固定底部炮台，鼠标瞄准后清除随机靶。当前初版包含 60 秒限时、
           五类靶子、连击倍率、粒子命中反馈和本地最高分记录。
@@ -1303,6 +1333,57 @@ export function SnapshotGame() {
           <p>10+ 连击 x2</p>
         </div>
       </div>
+
+      {isAuthorModalOpen && (
+        <div
+          className="author-modal-backdrop"
+          onClick={() => setIsAuthorModalOpen(false)}
+          role="presentation"
+        >
+          <div
+            aria-modal="true"
+            aria-labelledby="author-modal-title"
+            className="author-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+          >
+            <button
+              aria-label="关闭关于作者弹窗"
+              className="author-modal-close"
+              onClick={() => setIsAuthorModalOpen(false)}
+              type="button"
+            >
+              ×
+            </button>
+            <p className="overlay-kicker">AUTHOR PROFILE</p>
+            <h2 id="author-modal-title">关于作者</h2>
+            <p>
+              本项目作者为 <strong>soBigRice</strong>。
+            </p>
+            <p className="author-version">当前版本 v{APP_VERSION}</p>
+            <p>
+              你可以通过 GitHub 主页查看作者的项目、代码更新和更多练习作品。
+            </p>
+            <div className="overlay-actions">
+              <a
+                className="launch-button"
+                href={AUTHOR_GITHUB_URL}
+                rel="noreferrer"
+                target="_blank"
+              >
+                访问 GitHub
+              </a>
+              <button
+                className="launch-button secondary"
+                onClick={() => setIsAuthorModalOpen(false)}
+                type="button"
+              >
+                关闭
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
