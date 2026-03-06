@@ -94,14 +94,11 @@ npm run lint
 ## 文档
 
 - [需求说明书](./需求说明书.md)
-- [2D Target Shooter Design](./2d_target_shooter_design.md)
 
-## 开源说明
+## 预览
 
-如果你准备将仓库公开到 GitHub，建议同时补充以下内容：
-
-- 项目截图或 GIF 预览
-- Releases 或在线试玩地址
+![alt text](image.png)
+![alt text](image-1.png)
 
 本仓库已附带 `MIT` 许可证，见 [LICENSE](./LICENSE)。
 
