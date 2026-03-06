@@ -65,6 +65,28 @@ npm run preview
 npm run lint
 ```
 
+## GitHub Pages 部署
+
+仓库已经补好了 GitHub Pages 的自动部署配置：
+
+- 推送到 `main` 会自动触发 `.github/workflows/deploy.yml`
+- 构建产物目录为 `dist/`
+- 当前仓库名是 `snapshot`，所以 Vite 生产构建的 `base` 已配置为 `/snapshot/`
+
+首次启用还需要在 GitHub 仓库页面手动设置一次：
+
+1. 打开 `Settings -> Pages`
+2. 在 `Build and deployment` 的 `Source` 里选择 `GitHub Actions`
+3. 推送一次新的提交，等待 Actions 跑完
+
+如果一切正常，站点地址会是：
+
+```text
+https://<你的 GitHub 用户名>.github.io/snapshot/
+```
+
+如果你以后修改了仓库名，记得同步更新 `vite.config.ts` 里的 `githubPagesBase`。
+
 ## 项目结构
 
 ```text
